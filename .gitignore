@@ -13,3 +13,4 @@ dist/*
 *.pyo
 
 .idea
+emencia-django-slideshows.iml
