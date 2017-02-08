@@ -11,3 +11,5 @@ dist/*
 #defaults
 *.pyc
 *.pyo
+
+.idea

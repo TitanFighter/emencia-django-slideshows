@@ -3,7 +3,12 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import filebrowser.fields
-import djangocms_text_ckeditor.fields
+
+try:
+    import djangocms_text_ckeditor.fields
+    content_field = djangocms_text_ckeditor.fields.HTMLField
+except ImportError:
+    content_field = models.TextField
 
 
 class Migration(migrations.Migration):
@@ -20,7 +25,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=255, verbose_name='title')),
                 ('priority', models.IntegerField(default=100, help_text='Priority display value', verbose_name='display priority')),
                 ('publish', models.BooleanField(default=True, help_text='Unpublished slide will not be displayed in its slideshow', verbose_name='published', choices=[(True, 'Published'), (False, 'Unpublished')])),
-                ('content', djangocms_text_ckeditor.fields.HTMLField(verbose_name='content', blank=True)),
+                ('content', content_field(verbose_name='content', blank=True)),
                 ('image', filebrowser.fields.FileBrowseField(default=None, max_length=255, null=True, verbose_name='image', blank=True)),
                 ('url', models.CharField(help_text='An URL that can be used in the template for this entry', max_length=255, verbose_name='url', blank=True)),
                 ('open_blank', models.BooleanField(default=False, help_text='If checked the link will be open in a new window', verbose_name='open new window')),
