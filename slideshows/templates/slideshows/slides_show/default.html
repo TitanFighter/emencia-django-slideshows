@@ -4,11 +4,11 @@
 {% for slide in slideshow_slides %}
     <div class="item-{{ forloop.counter }} slide-item"
          {% if slide.image %}
-            style="background-image: url('{{ slide.image.url }}');" 
+            style="background-image: url('{{ slide.image.url }}');"
          {% endif %}
          data-slide-title="{{ slide.title }}"
          data-slide-alt="{{ slide.title }}"
-         {% if slide.url %} 
+         {% if slide.url %}
             data-slide-url="{{ slide.url }}"
             {% if slide.open_blank %} data-slide-url-target="_blank"{% endif %}
          {% endif %}>

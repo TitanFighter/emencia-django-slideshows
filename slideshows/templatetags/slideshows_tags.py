@@ -43,16 +43,16 @@ class SlideshowFragment(template.Node):
         """
         # Default assume this is directly an instance
         slideshow_instance = self.slideshow_slug_varname.resolve(context)
-        print('slideshow_instance:', slideshow_instance)
         if self.template_varname:
             self.custom_template = self.template_varname.resolve(context)
         if self.config_varname:
             self.custom_config = self.config_varname.resolve(context)
         # Assume this is a slug (else will be used at an instance)
         if isinstance(slideshow_instance, SafeText):
-            slideshow_instance = get_object_or_404(Slideshow, slug=slideshow_instance)
-        
-        return mark_safe( self.get_content_render(context, slideshow_instance) )
+            # slideshow_instance = get_object_or_404(Slideshow, slug=slideshow_instance)
+            slideshow_instance = Slideshow.objects.filter(slug=slideshow_instance).first()
+
+        return mark_safe(self.get_content_render(context, slideshow_instance))
     
     def get_config_render(self, context, instance):
         """
@@ -67,6 +67,11 @@ class SlideshowFragment(template.Node):
         :rtype: string
         :return: config HTML for the slideshow
         """
+
+        # Workaround to avoid 404 (see 'def render' above) in case if slideshows have not been created in admin
+        if instance is None:
+            return ''
+
         used_config = self.custom_config or instance.config
         if not used_config:
             return ""
@@ -93,8 +98,12 @@ class SlideshowFragment(template.Node):
         :rtype: string
         :return: the HTML for the slideshow
         """
+        # Workaround to avoid 404 (see 'def render' above) in case if slideshows have not been created in admin
+        if instance is None:
+            return ''
+
         js_config = self.get_config_render(context, instance)
-        
+
         used_template = self.custom_template or instance.template
         
         t = template.loader.get_template(used_template)

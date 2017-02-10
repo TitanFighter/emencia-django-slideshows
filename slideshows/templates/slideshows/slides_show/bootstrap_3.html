@@ -1,50 +1,55 @@
-<div class="carousel slide" id="myCarousel">
-    <div class="carousel-inner">
+{% if slideshow_slides %}
+    <div class="carousel slide" id="myCarousel">
 
-        <!-- Slides -->
-        {% for slide in slideshow_slides %}
-            <div class="item {% if forloop.counter == 1 %}active{% endif %}" id="slide{{ forloop.counter }}">
-                <img src="{{ slide.image.url }}" style="margin-left: auto; margin-right: auto">
+        <div class="carousel-inner">
+            <!-- Slides -->
+            {% for slide in slideshow_slides %}
+                <div class="item {% if forloop.counter == 1 %}active{% endif %}" id="slide{{ forloop.counter }}">
+                    <img src="{{ slide.image.url }}" style="margin-left: auto; margin-right: auto">
 
-                <div class="caption row-fluid" style="background-color: lightgrey; border-radius: 6px">
-                    <div class="span4">
-                        <h3>
-                            {% if slide.url %}
-                                <a href="{{ slide.url }}">{{ slide.title }}</a>
-                            {% else %}
-                                {{ slide.title }}
-                            {% endif %}
-                        </h3>
-                        {# <a class="btn btn-mini" href="#">&raquo; Read More</a> #}
+                    <div class="caption row-fluid" style="background-color: lightgrey; border-radius: 6px">
+                        <div class="span4">
+                            <h3>
+                                {% if slide.url %}
+                                    <a href="{{ slide.url }}">{{ slide.title }}</a>
+                                {% else %}
+                                    {{ slide.title }}
+                                {% endif %}
+                            </h3>
+                            {# <a class="btn btn-mini" href="#">&raquo; Read More</a> #}
+                        </div>
+
+                        <div class="span8">
+                            <p>{{ slide.content|safe }}</p>
+                        </div>
                     </div>
 
-                    <div class="span8">
-                        <p>{{ slide.content|safe }}</p>
-                    </div>
                 </div>
+            {% endfor %}
+        </div>
 
-            </div>
-        {% endfor %}
+        {% if slideshow_slides|length > 1 %}
 
-    </div>
+            <!-- Indicators -->
+            <ol class="carousel-indicators" style="bottom: 80px">
+                {% for slide in slideshow_slides %}
+                    <li data-target="#myCarousel"
+                        data-slide-to="{{forloop.counter0}}"
+                        class="{% if forloop.first%}active{%endif%}"
+                        style="background-color: #ff111f; border: 1px solid #000">
+                    </li>
+                {%endfor%}
+            </ol>
 
-    <!-- Indicators -->
-    <ol class="carousel-indicators" style="bottom: 80px">
-        {% for slide in slideshow_slides %}
-            <li data-target="#myCarousel"
-                data-slide-to="{{forloop.counter0}}"
-                class="{% if forloop.first%}active{%endif%}"
-                style="background-color: #ff111f; border: 1px solid #000">
-            </li>
-        {%endfor%}
-    </ol>
+            <!-- Left\Right arrows control -->
+            <div class="control-box">
+                <a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>
+                <a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>
+            </div><!-- /.control-box -->
 
-    <!-- Left\Right arrows control -->
-    <div class="control-box">
-        <a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>
-        <a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>
-    </div><!-- /.control-box -->
+        {% endif %}
 
-</div><!-- /#myCarousel -->
+    </div><!-- /#myCarousel -->
 
-{% if slideshow_js_config %}{{ slideshow_js_config }}{% endif %}
+    {% if slideshow_js_config %}{{ slideshow_js_config }}{% endif %}
+{% endif %}
