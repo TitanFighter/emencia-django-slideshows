@@ -2,11 +2,13 @@
 # Available templates to display a slideshow
 SLIDESHOWS_TEMPLATES = (
     ("slideshows/slides_show/default.html", "Default template"),
+    ("slideshows/slides_show/bootstrap_3.html", "Bootstrap 3 template"),
 )
 
 # Available config file to initialize your slideshow Javascript stuff
 SLIDESHOWS_CONFIGS = (
     ("slideshows/slides_show/configs/default.html", "Default config"),
+    ("slideshows/slides_show/configs/bootstrap_3.html", "Bootstrap 3 config"),
 )
 
 # Available templates for "random slide" mode

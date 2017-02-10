@@ -3,7 +3,7 @@
 Template tags
 """
 from django import template
-from django.utils.safestring import mark_safe
+from django.utils.safestring import mark_safe, SafeText
 from django.shortcuts import get_object_or_404
 
 from slideshows.models import Slideshow
@@ -43,12 +43,13 @@ class SlideshowFragment(template.Node):
         """
         # Default assume this is directly an instance
         slideshow_instance = self.slideshow_slug_varname.resolve(context)
+        print('slideshow_instance:', slideshow_instance)
         if self.template_varname:
             self.custom_template = self.template_varname.resolve(context)
         if self.config_varname:
             self.custom_config = self.config_varname.resolve(context)
         # Assume this is a slug (else will be used at an instance)
-        if isinstance(slideshow_instance, basestring):
+        if isinstance(slideshow_instance, SafeText):
             slideshow_instance = get_object_or_404(Slideshow, slug=slideshow_instance)
         
         return mark_safe( self.get_content_render(context, slideshow_instance) )
