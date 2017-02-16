@@ -8,16 +8,16 @@
                     <img src="{{ slide.image.url }}" style="margin-left: auto; margin-right: auto">
 
                     <div class="caption row-fluid" style="background-color: lightgrey; border-radius: 6px">
-                        <div class="span4">
-                            <h3>
-                                {% if slide.url %}
-                                    <a href="{{ slide.url }}">{{ slide.title }}</a>
-                                {% else %}
-                                    {{ slide.title }}
-                                {% endif %}
-                            </h3>
+{#                        <div class="span4">#}
+{#                            <h3>#}
+{#                                {% if slide.url %}#}
+{#                                    <a href="{{ slide.url }}">{{ slide.title }}</a>#}
+{#                                {% else %}#}
+{#                                    {{ slide.title }}#}
+{#                                {% endif %}#}
+{#                            </h3>#}
                             {# <a class="btn btn-mini" href="#">&raquo; Read More</a> #}
-                        </div>
+{#                        </div>#}
 
                         <div class="span8">
                             <p>{{ slide.content|safe }}</p>
@@ -31,12 +31,12 @@
         {% if slideshow_slides|length > 1 %}
 
             <!-- Indicators -->
-            <ol class="carousel-indicators" style="bottom: 80px">
+            <ol class="carousel-indicators" style="bottom: 0; left: 95%">
                 {% for slide in slideshow_slides %}
                     <li data-target="#myCarousel"
                         data-slide-to="{{forloop.counter0}}"
                         class="{% if forloop.first%}active{%endif%}"
-                        style="background-color: #ff111f; border: 1px solid #000">
+                        style="background-color: #ff111f; border: 2px solid #000; border-radius: 0; ">
                     </li>
                 {%endfor%}
             </ol>
