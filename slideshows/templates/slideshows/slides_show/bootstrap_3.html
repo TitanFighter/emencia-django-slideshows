@@ -5,7 +5,18 @@
             <!-- Slides -->
             {% for slide in slideshow_slides %}
                 <div class="item {% if forloop.counter == 1 %}active{% endif %}" id="slide{{ forloop.counter }}">
-                    <img src="{{ slide.image.url }}" style="margin-left: auto; margin-right: auto">
+
+                    {% with "margin-left: auto; margin-right: auto" as image_style %}
+
+                        {% if slide.url %}
+                            <a href="{{ slide.url }}">
+                                <img src="{{ slide.image.url }}" style="{{ image_style }}">
+                            </a>
+                        {% else %}
+                            <img src="{{ slide.image.url }}" style="{{ image_style }}">
+                        {% endif %}
+
+                    {% endwith %}
 
                     <div class="caption row-fluid" style="background-color: lightgrey; border-radius: 6px">
 {#                        <div class="span4">#}
