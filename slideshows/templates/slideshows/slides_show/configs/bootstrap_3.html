@@ -1,8 +1,13 @@
 <script>
-        // Carousel Auto-Cycle
+    // Carousel Auto-Cycle
     $(document).ready(function() {
         $('.carousel').carousel({
-            interval: 6000
+            interval:
+            {% if slideshow_instance.transition_time %}
+                {{ slideshow_instance.transition_time }}
+            {% else %}
+                6000
+            {% endif %}
         });
     });
 </script>

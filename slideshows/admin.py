@@ -54,16 +54,16 @@ class SlideAdmin(admin.ModelAdmin):
             'fields': ('slideshow',),
         }),
         (None, {
-            'fields': ('title', 'priority', 'publish')
+            'fields': ('title', 'show_title', 'linkable_title', 'priority', 'publish')
         }),
         (None, {
-            'fields': ('image',)
+            'fields': ('image', 'linkable_image')
         }),
         (None, {
             'fields': ('url', 'open_blank')
         }),
         (None, {
-            'fields': ('content',),
+            'fields': ('content', 'show_content'),
         }),
     )
 

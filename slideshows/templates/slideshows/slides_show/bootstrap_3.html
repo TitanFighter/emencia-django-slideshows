@@ -1,38 +1,56 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static "slideshows/style.css" %}"/>
+
 {% if slideshow_slides %}
     <div class="carousel slide" id="myCarousel">
 
         <div class="carousel-inner">
-            <!-- Slides -->
+            {# Slides #}
             {% for slide in slideshow_slides %}
                 <div class="item {% if forloop.counter == 1 %}active{% endif %}" id="slide{{ forloop.counter }}">
 
-                    {% with "margin-left: auto; margin-right: auto" as image_style %}
+                    {# Image #}
+                    {% if slide.linkable_image and slide.url %}
+                        <a href="{{ slide.url }}"
+                            {% if slide.open_blank %}
+                                target="_blank"
+                            {% endif %}>
 
-                        {% if slide.url %}
-                            <a href="{{ slide.url }}">
-                                <img src="{{ slide.image.url }}" style="{{ image_style }}">
-                            </a>
-                        {% else %}
-                            <img src="{{ slide.image.url }}" style="{{ image_style }}">
+                            <img src="{{ slide.image.url }}">
+                        </a>
+                    {% else %}
+                        <img src="{{ slide.image.url }}">
+                    {% endif %}
+
+                    <div class="caption row-fluid">
+
+                        {# Title #}
+                        {% if slide.show_title %}
+
+                            <h3>
+                                {% if slide.linkable_title and slide.url %}
+                                    <a href="{{ slide.url }}"
+                                        {% if slide.open_blank %}
+                                            target="_blank"
+                                        {% endif %}>
+
+                                        {{ slide.title }}
+                                    </a>
+                                {% else %}
+                                    {{ slide.title }}
+                                {% endif %}
+                            </h3>
+
                         {% endif %}
 
-                    {% endwith %}
+                        {# Content #}
+                        {% if slide.content and slide.show_content %}
 
-                    <div class="caption row-fluid" style="background-color: lightgrey; border-radius: 6px">
-{#                        <div class="span4">#}
-{#                            <h3>#}
-{#                                {% if slide.url %}#}
-{#                                    <a href="{{ slide.url }}">{{ slide.title }}</a>#}
-{#                                {% else %}#}
-{#                                    {{ slide.title }}#}
-{#                                {% endif %}#}
-{#                            </h3>#}
-                            {# <a class="btn btn-mini" href="#">&raquo; Read More</a> #}
-{#                        </div>#}
-
-                        <div class="span8">
                             <p>{{ slide.content|safe }}</p>
-                        </div>
+                            {# <a class="btn btn-mini" href="#">&raquo; Read More</a> #}
+
+                        {% endif %}
+
                     </div>
 
                 </div>
@@ -41,26 +59,27 @@
 
         {% if slideshow_slides|length > 1 %}
 
-            <!-- Indicators -->
-            <ol class="carousel-indicators" style="bottom: 0; left: 95%">
+            {# Indicators #}
+            <ol class="carousel-indicators">
                 {% for slide in slideshow_slides %}
                     <li data-target="#myCarousel"
-                        data-slide-to="{{forloop.counter0}}"
-                        class="{% if forloop.first%}active{%endif%}"
-                        style="background-color: #ff111f; border: 2px solid #000; border-radius: 0; ">
+                        data-slide-to="{{ forloop.counter0 }}"
+                        class="{% if forloop.first %}active{% endif %}">
                     </li>
                 {%endfor%}
             </ol>
 
-            <!-- Left\Right arrows control -->
+            {# Left\Right arrows control #}
             <div class="control-box">
                 <a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>
                 <a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>
-            </div><!-- /.control-box -->
+            </div>
 
         {% endif %}
 
     </div><!-- /#myCarousel -->
 
-    {% if slideshow_js_config %}{{ slideshow_js_config }}{% endif %}
+    {% if slideshow_js_config %}
+        {{ slideshow_js_config }}
+    {% endif %}
 {% endif %}

@@ -1,0 +1,22 @@
+.carousel-inner img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.caption.row-fluid {
+    background-color: #eeeeee;
+    border-radius: 6px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+ol.carousel-indicators {
+    bottom: 0;
+    left: 95%;
+}
+
+ol.carousel-indicators li {
+    background-color: #ff111f;
+    border: 2px solid #000;
+    border-radius: 0;
+}
