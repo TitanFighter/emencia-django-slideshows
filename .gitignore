@@ -14,4 +14,3 @@ dist/*
 
 .idea
 emencia-django-slideshows.iml
-/slideshows/migrations/
