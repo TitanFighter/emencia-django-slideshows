@@ -12,11 +12,31 @@
 
 ol.carousel-indicators {
     bottom: 0;
-    left: 95%;
+    margin-left: inherit;
+    width: inherit;
+    left: inherit;
+    right: 15px;
+    text-align: inherit;
 }
 
 ol.carousel-indicators li {
-    background-color: #ff111f;
+    /*background-color: #ff111f;*/
     border: 2px solid #000;
     border-radius: 0;
+}
+
+.carousel-control {
+    background: none;
+    border: none;
+    left: -5px;
+    right: -5px;
+}
+
+.carousel-control.left {
+    background-image: none;
+}
+
+.carousel-control.right {
+    right: -10px;
+    background-image: none;
 }
