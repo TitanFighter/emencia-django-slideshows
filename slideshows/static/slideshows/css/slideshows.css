@@ -34,6 +34,7 @@ ol.carousel-indicators li {
 
 .carousel-control.left {
     background-image: none;
+    left: -10px;
 }
 
 .carousel-control.right {
