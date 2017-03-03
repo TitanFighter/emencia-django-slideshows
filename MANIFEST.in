@@ -2,5 +2,5 @@ include MANIFEST.in
 include LICENCE.txt
 include README.rst
 recursive-include slideshows/templates *
-recursive-include slideshows/templatetags
-recursive-include slideshows/static
+recursive-include slideshows/templatetags *
+recursive-include slideshows/static *
