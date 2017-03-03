@@ -1,28 +1,14 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
-    name='django-slideshows',
-    version=__import__('slideshows').__version__,
-    description=__import__('slideshows').__doc__,
-    long_description=open('README.rst').read(),
-    author='David Thenon',
-    author_email='dthenon@emencia.com',
-    url='https://github.com/TitanFighter/emencia-django-slideshows',
-    license='MIT',
-    packages=find_packages(),
-    classifiers=[
-        'Programming Language :: Python',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: OS Independent',
-        'Development Status :: 5 - Production/Stable',
-        'Environment :: Web Environment',
-        'Framework :: Django',
-        'Framework :: Django :: 1.7',
-        'Intended Audience :: Developers',
-        'Topic :: Internet :: WWW/HTTP',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-    ],
-    install_requires=['Django>=1.7'],
-    include_package_data=True,
-    zip_safe=False
+    name = 'django-slideshows',
+    packages = ['django-slideshows'], # this must be the same as the name above
+    version = '0.1',
+    description = 'A random test lib',
+    author = 'Peter Downs',
+    author_email = 'peterldowns@gmail.com',
+    url = 'https://github.com/TitanFighter/emencia-django-slideshows', # use the URL to the github repo
+    download_url = 'https://github.com/TitanFighter/emencia-django-slideshows/archive/master.zip', # I'll explain this in a second
+    keywords = ['testing', 'logging', 'example'], # arbitrary keywords
+    classifiers = [],
 )
