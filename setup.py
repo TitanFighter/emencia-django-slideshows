@@ -24,7 +24,7 @@ setup(
     ],
     install_requires=[
         'Django>=1.7',
-        'django-filebrowser-no-grappelli>=3.5.6',
+        # 'django-filebrowser-no-grappelli>=3.5.6',
     ],
     include_package_data=True,
     zip_safe=False
