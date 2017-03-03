@@ -6,4 +6,5 @@ setup(
     packages=find_packages(),
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
     long_description=open('README.rst').read(),
+    include_package_data=True,
 )
