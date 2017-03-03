@@ -4,7 +4,8 @@
         $('.carousel').carousel({
             interval:
             {% if slideshow_instance.transition_time %}
-                {{ slideshow_instance.transition_time }}
+                {# In case if Humanized numbers format is used  #}
+                {{ slideshow_instance.transition_time|cut:" " }}
             {% else %}
                 6000
             {% endif %}
