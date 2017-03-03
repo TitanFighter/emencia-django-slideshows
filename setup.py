@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='emencia-django-slideshows',
+    name='django-slideshows',
     version=__import__('slideshows').__version__,
     description=__import__('slideshows').__doc__,
     long_description=open('README.rst').read(),
     author='David Thenon',
     author_email='dthenon@emencia.com',
-    url='http://pypi.python.org/pypi/emencia-django-slideshows',
+    url='https://github.com/TitanFighter/emencia-django-slideshows',
     license='MIT',
     packages=find_packages(),
     classifiers=[
