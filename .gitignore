@@ -13,5 +13,6 @@ dist/*
 *.pyo
 
 .idea
+.directory
 emencia-django-slideshows.iml
 /slideshows/migrations/
