@@ -19,10 +19,10 @@ class SlideshowFragment(template.Node):
         """
         :type insert_instance_varname: string or object ``django.db.models.Model``
         :param insert_instance_varname: Instance variable name or a string slug
-        
+
         :type template_varname: string
         :param template_varname: custom template path to use instead of the one from the instance
-        
+
         :type config_varname: string
         :param config_varname: custom config path to use instead of the one from the instance
         """
@@ -32,12 +32,12 @@ class SlideshowFragment(template.Node):
             self.template_varname = template.Variable(template_varname)
         if config_varname:
             self.config_varname = template.Variable(config_varname)
-    
+
     def render(self, context):
         """
         :type context: object ``django.template.Context``
         :param context: Context tag object
-        
+
         :rtype: string
         :return: the HTML for the slideshow
         """
@@ -53,17 +53,17 @@ class SlideshowFragment(template.Node):
             slideshow_instance = Slideshow.objects.filter(slug=slideshow_instance).first()
 
         return mark_safe(self.get_content_render(context, slideshow_instance))
-    
+
     def get_config_render(self, context, instance):
         """
         Render the slideshow Javascript config
-        
-        :type instance: ``slideshows.models.Slideshow`` instance object 
+
+        :type instance: ``slideshows.models.Slideshow`` instance object
         :param instance: A slideshow instance
-        
+
         :type context: object ``django.template.Context``
         :param context: Context object
-        
+
         :rtype: string
         :return: config HTML for the slideshow
         """
@@ -75,26 +75,29 @@ class SlideshowFragment(template.Node):
         used_config = self.custom_config or instance.config
         if not used_config:
             return ""
-        
+
         t = template.loader.get_template(used_config)
         context.update({
             'slideshow_instance': instance,
             'slideshow_slides': instance.get_published_slides(),
         })
-        content = t.render(template.Context(context))
-        
+
+        # .flatten() converts RequestContext to dict in order to avoid the next Error:
+        # raise TypeError('context must be a dict rather than %s.' % context.__class__.__name__)
+        content = t.render(context.flatten())
+
         return content
 
     def get_content_render(self, context, instance):
         """
         Render the slideshow HTML content with its Javascript config
-        
-        :type instance: ``slideshows.models.Slideshow`` instance object 
+
+        :type instance: ``slideshows.models.Slideshow`` instance object
         :param instance: A slideshow instance
-        
+
         :type context: object ``django.template.Context``
         :param context: Context object
-        
+
         :rtype: string
         :return: the HTML for the slideshow
         """
@@ -105,15 +108,18 @@ class SlideshowFragment(template.Node):
         js_config = self.get_config_render(context, instance)
 
         used_template = self.custom_template or instance.template
-        
+
         t = template.loader.get_template(used_template)
         context.update({
             'slideshow_js_config': mark_safe(js_config),
             'slideshow_instance': instance,
             'slideshow_slides': instance.get_published_slides(),
         })
-        content = t.render(template.Context(context))
-        
+
+        # .flatten() converts RequestContext to dict in order to avoid the next Error:
+        # raise TypeError('context must be a dict rather than %s.' % context.__class__.__name__)
+        content = t.render(context.flatten())
+
         return content
 
 
@@ -121,9 +127,9 @@ class SlideshowFragment(template.Node):
 def do_slideshow_render(parser, token):
     """
     Display a slideshow HTML fragment
-    
+
     Usage : ::
-    
+
         {% slideshow_render [Slideshow SLUG or INSTANCE] [optional template overwrite] [optional config overwrite] %}
     """
     args = token.split_contents()
